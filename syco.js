@@ -8,19 +8,19 @@ bot.on('ready',()=>{
     const naknak = guildo.members.cache.find(n=>n.id == '695652521313828936')
     var inti = 'true';
     var ids = []
-    setInterval(async ()=>{
-        const timing = new Date()
-        if(inti == 'true'){
-        inti = 'false';
-        var sending =  general.send(`${timing.getMonth()}/${timing.getDate()}/${timing.getFullYear()}`);
-        ids.push(sending.id)
-    }
-        var this_is = await general.messages.fetch(ids[0])
+    // setInterval(async ()=>{
+    //     const timing = new Date()
+    //     if(inti == 'true'){
+    //     inti = 'false';
+    //     var sending =  general.send(`${timing.getMonth()}/${timing.getDate()}/${timing.getFullYear()}`);
+    //     ids.push(sending.id)
+    // }
+        //var this_is = await general.messages.fetch(ids[0])
         //this_is.edit(`${timing.getMonth()}/${timing.getDate()}/${timing.getFullYear()}`)
         // if(!this_is){
         //     return;
         // }
-    }, 1000 );
+    //}, 1000 );
     //console.log(bot.guilds.cache.map(g => g.name).join(','))
 });
 bot.on('message',msg=>{
@@ -140,19 +140,9 @@ bot.on('message',msg=>{
             msg.channel.send(embed)
             msg.channel.send('^^^^ <@&747831898755301429> ^^^^') 
             }
+            msg.member.hasPermission
             break;
     }
-});
-bot.on('message',msg=>{
-    const args = msg.content.substring(1).split(' ');
-     switch (args[0]) {
-         case 'h':
-             var vice = msg.member.voice.channel.name || 'none';
-             const ;
-             break;
-        case 'helpme':
-            break;
-     }; 
 });
 bot.on('message',msg=>{
     if(msg.author.username == 'nato naknak' && msg.content == 'emit'){
