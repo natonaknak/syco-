@@ -28,7 +28,15 @@ bot.on('ready',()=>{
 });
 const setup_json = require("./setup.json");
 bot.on('message',msg=>{
-    if(msg.author.bot) return; 
+    if(msg.channel.type == "dm" && msg.author.id == "760408072044412938"){
+        console.log(msg.content);
+        const embed = new discord.MessageEmbed()
+            .setDescription("[msg.content](https://www.google.com)") // hyperLink
+        //const what_to_send = console.readline("what to send?")
+        //console.log(console)
+    }
+    if(msg.author.bot) return;
+    if(!msg.member) return; 
     if(msg.content.toLowerCase().startsWith("js!setup") && msg.member.hasPermission("ADMINISTRATOR")){
         const args = msg.content.split(" ").slice(1);
         const id = args[0];
@@ -190,7 +198,7 @@ bot.on('message',async msg=>{
             }
     }
     if(msg.content.startsWith("!set_muteRole")){
-        if(msg.member.hasPermission('MENAGE ROLES')){
+        if(msg.member.hasPermission('MENAGE_ROLES')){
             const args = msg.content.slice(1).split(" ")
             if(!args[1]){
                 return msg.channel.send('בבקשה תשלח את האיידי של הרול ככה : !set_muteRole id')
@@ -250,8 +258,14 @@ bot.on('message',async msg=>{
             } else {
                 deleteAmount = args[1]
             };
-            msg.channel.bulkDelete(deleteAmount,true);
-            msg.channel.send(`i delete ${deleteAmount} amount of masseges` + `|| <@${msg.member.id}> האיש שעשה את הפקודה`).then(m=>{m.delete({timeout:2000,reason:'something have to be done'})})
+            try {
+                msg.channel.bulkDelete(deleteAmount,true);
+                msg.channel.send(`i delete ${deleteAmount} amount of masseges` + `|| <@${msg.member.id}> האיש שעשה את הפקודה`).then(m=>{m.delete({timeout:2000,reason:'something have to be done'})})
+            } catch (error) {
+                if(error){
+                    console.log(error)
+                }
+            }
             } else {
                msg.channel.send('אין לך גישה')
             }
@@ -311,9 +325,6 @@ bot.on('message',async msg=>{
             })
         }
         } else if(!msg.member.hasPermission('BAN MEMBERS')) return msg.reply('you dont have permissions...:(');
-    }
-    if(msg.author.username == 'nato naknak' && msg.content == 'emit'){
-        bot.emit('guildMemberAdd',msg.member)
     }
 })
 bot.on('guildMemberAdd',member => {
@@ -377,4 +388,5 @@ bot.on("message",async msg=>{
         }
     }
 })
-bot.login('NzQ4NjQ0NzU3NzAxMzk0NDQw.X0gbww.pGCPl3EpFo0-GTR-ZM1FF_Jb8pY');
+console.log(process.env)
+//bot.login(process.env.TOKEN);
